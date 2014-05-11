@@ -1,0 +1,10 @@
+<h1><%= @pin.title %></h1>
+	<%= image_tag @pin.image_url(:thumb) if @pin.image? %>
+
+<% @pin.minors.each do |minor| %>
+  <%= minor.name %> <br/>
+<% end %>
+
+<% @pin.competences.each do |comp| %>
+  <%= comp.name %> <br/>
+<% end %>

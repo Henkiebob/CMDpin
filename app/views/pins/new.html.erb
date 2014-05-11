@@ -1,0 +1,23 @@
+<h1>Pins#new</h1>
+
+<%= simple_form_for @pin do |f| %>
+  <%= f.label :link %>:
+  <%= f.text_field :link %><br />
+  <%= f.label :title %>:
+  <%= f.text_field :title %><br />
+  <%= f.collection_check_boxes(:minor_ids, @minors, :id,:name)%> <br/><br/>
+  <%= f.collection_check_boxes(:competence_ids, @competences, :id,:name)%>
+
+	<div id="previewImage">
+
+	</div>
+  <input name="api_image" type="hidden" id="api_image">
+  <label for="accept_file">Ik heb zelf een plaatje</label>
+  <input id="accept_file" name="accept_file" type="checkbox" value="1">
+
+  <div class="upload_file">
+  	<%= f.file_field :image %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
