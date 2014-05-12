@@ -17,19 +17,44 @@
 
 
 $(document).on('change', '#pin_link', function() {
-  	var url = $('#pin_link').val();
-	var request = "http://ajax.googleapis.com/ajax/services/search/web?q="+url+"&v=1.0&callback=?";
+ 	// var url = $('#pin_link').val();
+	// var request = "http://ajax.googleapis.com/ajax/services/search/web?q="+url+"&v=1.0&callback=?";
 
-	var image = '<img src="https://api.thumbalizr.com/?url='+url+'&width=250"/>';
-	var link_to_image = 'https://api.thumbalizr.com/?url='+url+'&width=250';
+	// var image = '<img src="https://api.thumbalizr.com/?url='+url+'&width=250"/>';
+	// var link_to_image = 'https://api.thumbalizr.com/?url='+url+'&width=250';
 
-	$('#previewImage').append(image);
-	$('#api_image').val(link_to_image);
+	// $('#previewImage').append(image);
+	// $('#api_image').val(link_to_image);
 
-	$.getJSON(request, function (data) {
-		//alert(data.responseData.results[0].titleNoFormatting);
-	  	$("#pin_title").val(data.responseData.results[0].titleNoFormatting);
+	// $.getJSON(request, function (data) {
+	// 	//alert(data.responseData.results[0].titleNoFormatting);
+	//   	$("#pin_title").val(data.responseData.results[0].titleNoFormatting);
+	// });
+	
+	if (!window.location.origin)
+  		window.location.origin = window.location.protocol+"//"+window.location.host;
+
+	var pathname = window.location.origin;
+
+	var url = $('#pin_link').val();
+	var request = ""+pathname+"/pins/metadata";
+
+	var meta_url = {'url' : url};
+
+	$.ajax({
+	    url: request,
+	    type: 'POST',
+	    data: meta_url ,
+	    success: function(resp){ 
+	    	$("#previewImage").prepend('<img src="'+resp[0]+'"/>');
+
+	    	console.log(resp[0]);
+
+	    	$("#pin_image").val(resp[0]);
+	    	$("#pin_title").val(resp[1]);
+	     }
 	});
+
 });
 
 

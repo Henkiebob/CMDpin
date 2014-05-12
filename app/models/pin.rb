@@ -11,5 +11,5 @@ class Pin < ActiveRecord::Base
 	accepts_nested_attributes_for :minors
 	accepts_nested_attributes_for :competences
 
-	mount_uploader :image, PinImageUploader
+	#mount_uploader :image, PinImageUploader
 end

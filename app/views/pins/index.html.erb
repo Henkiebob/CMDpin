@@ -5,8 +5,8 @@
 <% @pins.each do |pin| %>
 	<%= content_tag "div", class: "pin", data: {minors: pin.minors.ids, competences: pin.competences.ids} do %>
 		<%= pin.title %>
-		<% if pin.image.url %>
-			<%= image_tag pin.image_url() %>
+		<% if pin.image %>
+			<%= image_tag pin.image %>
 		<% else %>
 			<img src="https://api.thumbalizr.com/?url=<%= pin.link %>&width=250"/>
 		<% end %>

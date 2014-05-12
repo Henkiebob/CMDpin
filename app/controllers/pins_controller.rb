@@ -10,14 +10,37 @@ class PinsController < ApplicationController
       @pin = Pin.new(pin_params)
       @pin.user_id = current_user.id
 
-      if pin_params[:api_image].present?
-        @pin.remote_image_url = pin_params(:api_image)
-        abort(@pin.remote_image_url)
-      end
-
       if @pin.save
         redirect_to pins_path
       end
+
+
+
+  end
+
+  def getMetaData
+    page = MetaInspector.new(params[:url])
+
+    @meta_information = []
+    meta_image = page.meta["og:image"]
+    meta_title = page.meta["og:title"]
+
+    #first the og image
+    if meta_image.nil?
+        #if not then the twitter image
+        meta_image = page.meta["twitter:image"]
+
+        #still being a little bitch? first image i can find
+        if meta_image.nil?
+            meta_image = page.images[0]
+        end
+    end
+
+    @meta_information.push(meta_image, meta_title)
+
+    respond_to do |format|
+      format.json { render json: @meta_information }
+     end
   end
 
   def new
@@ -35,6 +58,7 @@ class PinsController < ApplicationController
 
   private
   def pin_params
-    params.require(:pin).permit(:title, :name, :link, :image, :api_image, { :minor_ids => [] }, { :competence_ids => [] })
+    params.require(:pin).permit(:title, :name, :link, :image, :url, { :minor_ids => [] }, { :competence_ids => [] })
   end
+
 end

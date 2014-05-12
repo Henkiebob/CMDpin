@@ -6,18 +6,11 @@
   <%= f.label :title %>:
   <%= f.text_field :title %><br />
   <%= f.collection_check_boxes(:minor_ids, @minors, :id,:name)%> <br/><br/>
-  <%= f.collection_check_boxes(:competence_ids, @competences, :id,:name)%>
+  <%= f.collection_check_boxes(:competence_ids, @competences, :id, :name)%>
 
-	<div id="previewImage">
+	<div id="previewImage"></div>
 
-	</div>
-  <input name="api_image" type="hidden" id="api_image">
-  <label for="accept_file">Ik heb zelf een plaatje</label>
-  <input id="accept_file" name="accept_file" type="checkbox" value="1">
-
-  <div class="upload_file">
-  	<%= f.file_field :image %>
-  </div>
+  <%= f.input_field :image, :as => :hidden %>
 
   <%= f.submit %>
 <% end %>

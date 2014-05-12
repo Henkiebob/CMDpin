@@ -18,7 +18,8 @@ gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
 gem 'simple_form'
 gem 'carrierwave'
-gem 'mini_magick'
+gem 'metainspector'
+gem "mini_magick"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
